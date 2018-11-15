@@ -15,14 +15,11 @@ var memory_array = [
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
   
-    // While there remain elements to shuffle...
     while (0 !== currentIndex) {
-  
-      // Pick a remaining element...
+
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
-  
-      // And swap it with the current element.
+
       temporaryValue = array[currentIndex];
       array[currentIndex] = array[randomIndex];
       array[randomIndex] = temporaryValue;
@@ -35,20 +32,53 @@ function shuffle(array) {
   memory_array = shuffle(memory_array);
   console.log(memory_array);
 
-var card = $('.col-sm-3 img')
+var card = $('.col-sm-3 img');
+var openedCard = [];
 function showCards(){
-    for (var i = 0; i < card.length; i++) {
-        var x = event.target;
-        if (x === card[i]) {
-            card[i].src = memory_array[i];
-        }
-    }
+    var currentNum = parseInt(event.target.parentElement.id.substring(4));
+    card[currentNum].src = memory_array[currentNum];
     
+
+    openedCard.push(event.target);
+    var len = openedCard.length;
+    if (len === 2){
+        console.log('hey');
+        if (openedCard[0].src === openedCard[1].src) {
+            console.log("same");
+            matched();
+
+
+        } else {
+            console.log("different");
+            unmatched();
+        }
+    } else {
+        console.log('bah');
+        
+    }
+
 }
 
 $('.col-sm-3').on('click',showCards);
 
 
+
+function matched(){
+    openedCard[0].removeEventListener("click", showCards);
+    openedCard[1].removeEventListener("click", showCards);
+    openedCard = [];
+
+}
+
+function unmatched(){
+    setTimeout(function(){
+        
+        openedCard[0].src = "https://vignette.wikia.nocookie.net/logopedia/images/0/0f/Barbie_2000s.svg/revision/latest?cb=20170705215137";
+        openedCard[1].src = "https://vignette.wikia.nocookie.net/logopedia/images/0/0f/Barbie_2000s.svg/revision/latest?cb=20170705215137";
+        openedCard = [];
+
+    },1000)
+}
 
 
 
