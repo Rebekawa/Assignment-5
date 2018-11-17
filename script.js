@@ -12,6 +12,30 @@ var memory_array = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyKyr_2bbcP-pie_7AryUHU9g8oXNwvsP_CKYzDE-udeoAwi1GjA',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyKyr_2bbcP-pie_7AryUHU9g8oXNwvsP_CKYzDE-udeoAwi1GjA'
 ];
+var newGame = function () {
+    shuffle(memory_array);
+    back();
+    game();
+    console.log('newgame');
+    
+}
+
+//Func that returns all the cards back
+var back = function () {
+    for (var i = 0; i < card.length; i++) {
+        card[i].src ="https://vignette.wikia.nocookie.net/logopedia/images/0/0f/Barbie_2000s.svg/revision/latest?cb=20170705215137";
+    }
+}
+
+game = function () {
+    for (var i = 0; i < card.length; i++) {
+        card[i].addEventListener("click", showCards);
+        card[i].addEventListener("click", cardOpen);
+    }
+}
+
+$('#newGame').on('click',newGame);
+
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
   
@@ -105,6 +129,8 @@ function game () {
         card[i].addEventListener("click", cardOpen);
     }
 }
+
+
 
 
 
