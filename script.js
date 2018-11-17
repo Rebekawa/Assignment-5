@@ -39,9 +39,14 @@ function showCards(){
     card[currentNum].src = memory_array[currentNum];
     
 
-    openedCard.push(event.target);
+    
+
+}
+function cardOpen() {
+openedCard.push(event.target);
     var len = openedCard.length;
     if (len === 2){
+        disableGame();
         console.log('hey');
         if (openedCard[0].src === openedCard[1].src) {
             console.log("same");
@@ -56,10 +61,11 @@ function showCards(){
         console.log('bah');
         
     }
-
 }
 
 $('.col-sm-3').on('click',showCards);
+$('.col-sm-3').on('click',cardOpen);
+
 
 
 
@@ -79,6 +85,28 @@ function unmatched(){
 
     },1000)
 }
+
+function disableGame () {
+    console.log('disable');
+    
+    for (var i = 0; i < card.length; i++) {
+        card[i].removeEventListener("click", showCards);
+        card[i].removeEventListener("click", cardOpen);
+    }
+    setTimeout(function () {
+        game()
+    }, 1000);
+}
+
+
+function game () {
+    for (var i = 0; i < card.length; i++) {
+        card[i].addEventListener("click", showCards);
+        card[i].addEventListener("click", cardOpen);
+    }
+}
+
+
 
 
 
