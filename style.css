@@ -56,3 +56,38 @@ body {
     padding: 20px;
 }
 
+@media screen and (max-width: 800px) {
+    .col-sm-3 img {
+        height: 100px;
+        width: 100px;
+    }
+
+    .col-sm-3 {
+        height: 100px;
+        width: 100px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .col-sm-3 img {
+        height: 80px;
+        width: 80px;
+    }
+
+    .col-sm-3 {
+        height: 80px;
+        width: 80px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .col-sm-3 img {
+        height: 50px;
+        width: 50px;
+    }
+
+    .col-sm-3 {
+        height: 50px;
+        width: 50px;
+    }
+}
