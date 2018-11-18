@@ -13,6 +13,7 @@ var memory_array = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyKyr_2bbcP-pie_7AryUHU9g8oXNwvsP_CKYzDE-udeoAwi1GjA'
 ];
 
+var endOfGameTally = 12;
 var isClicked = true;
 //start a new game
 
@@ -82,6 +83,8 @@ openedCard.push(event.target);
         if (openedCard[0].src === openedCard[1].src) {
             console.log("same");
             matched();
+            endOfGameTally -= 2;
+            endGameModal()
 
 
         } else {
@@ -105,10 +108,15 @@ function matched(){
     openedCard[1].removeEventListener("click", showCards);
     isClicked =  true;
     
+    openedCard[0].classList.add("match");
+    openedCard[1].classList.add("match");
+    
     
     cardOpen();
     showCards();
     openedCard = [];
+    
+    
 
 }
 
@@ -127,7 +135,41 @@ function unmatched(){
     
 }
 
+//Modal
 
+var closeicon = document.querySelector(".close");
+var modal = document.getElementById("popup1");
+var arrOfMatches = document.getElementsByClassName("match");
+
+function endGameModal() {
+    if (endOfGameTally === 0) {
+        modal.classList.add("show");
+        modal.style.display = "block";
+        document.getElementsByClassName("close").onclick = function () {
+            modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        document.getElementById("play-again").addEventListener("click", function (e) {
+            playAgain()
+        });
+        closeModal();
+    };
+}
+
+function closeModal() {
+    closeicon.addEventListener("click", function (e) {
+        playAgain()
+    });
+}
+
+function playAgain() {
+    modal.classList.remove("show");
+    newGame();
+}
 
 
 
