@@ -12,10 +12,14 @@ var memory_array = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyKyr_2bbcP-pie_7AryUHU9g8oXNwvsP_CKYzDE-udeoAwi1GjA',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyKyr_2bbcP-pie_7AryUHU9g8oXNwvsP_CKYzDE-udeoAwi1GjA'
 ];
+
+var isClicked = true;
+//start a new game
+
 var newGame = function () {
     shuffle(memory_array);
     back();
-    game();
+    showCards();
     console.log('newgame');
     
 }
@@ -27,14 +31,10 @@ var back = function () {
     }
 }
 
-game = function () {
-    for (var i = 0; i < card.length; i++) {
-        card[i].addEventListener("click", showCards);
-        card[i].addEventListener("click", cardOpen);
-    }
-}
 
 $('#newGame').on('click',newGame);
+
+//Func to shuffle
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -57,20 +57,27 @@ function shuffle(array) {
   console.log(memory_array);
 
 var card = $('.col-sm-3 img');
-var openedCard = [];
+
+
+//Func to change the src of the image from the back to the front
+
 function showCards(){
-    var currentNum = parseInt(event.target.parentElement.id.substring(4));
-    card[currentNum].src = memory_array[currentNum];
-    
-
-    
-
+    if(isClicked){
+        var currentNum = parseInt(event.target.parentElement.id.substring(4));
+        card[currentNum].src = memory_array[currentNum];
+    }
 }
+
+var openedCard = [];
+
+//Func that pushes the 2 cards into an array
+
 function cardOpen() {
+      
 openedCard.push(event.target);
     var len = openedCard.length;
     if (len === 2){
-        disableGame();
+        isClicked = false;
         console.log('hey');
         if (openedCard[0].src === openedCard[1].src) {
             console.log("same");
@@ -91,14 +98,21 @@ $('.col-sm-3').on('click',showCards);
 $('.col-sm-3').on('click',cardOpen);
 
 
-
+//2 cards are the same
 
 function matched(){
     openedCard[0].removeEventListener("click", showCards);
     openedCard[1].removeEventListener("click", showCards);
+    isClicked =  true;
+    
+    
+    cardOpen();
+    showCards();
     openedCard = [];
 
 }
+
+//2 cards are different
 
 function unmatched(){
     setTimeout(function(){
@@ -107,28 +121,13 @@ function unmatched(){
         openedCard[1].src = "https://vignette.wikia.nocookie.net/logopedia/images/0/0f/Barbie_2000s.svg/revision/latest?cb=20170705215137";
         openedCard = [];
 
+        isClicked =  true;
+
     },1000)
-}
-
-function disableGame () {
-    console.log('disable');
     
-    for (var i = 0; i < card.length; i++) {
-        card[i].removeEventListener("click", showCards);
-        card[i].removeEventListener("click", cardOpen);
-    }
-    setTimeout(function () {
-        game()
-    }, 1000);
 }
 
 
-function game () {
-    for (var i = 0; i < card.length; i++) {
-        card[i].addEventListener("click", showCards);
-        card[i].addEventListener("click", cardOpen);
-    }
-}
 
 
 
