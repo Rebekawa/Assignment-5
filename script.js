@@ -21,7 +21,6 @@ var newGame = function () {
     shuffle(memory_array);
     back();
     showCards();
-    console.log('newgame');
     
 }
 
@@ -55,7 +54,6 @@ function shuffle(array) {
   
   
   memory_array = shuffle(memory_array);
-  console.log(memory_array);
 
 var card = $('.col-sm-3 img');
 
@@ -79,20 +77,16 @@ openedCard.push(event.target);
     var len = openedCard.length;
     if (len === 2){
         isClicked = false;
-        console.log('hey');
         if (openedCard[0].src === openedCard[1].src) {
-            console.log("same");
             matched();
             endOfGameTally -= 2;
             endGameModal()
 
 
         } else {
-            console.log("different");
             unmatched();
         }
     } else {
-        console.log('bah');
         
     }
 }
